@@ -1,5 +1,7 @@
 package com.example.assigment_epic.activity;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
     private RecyclerView mRvBottomList;
     private BottomBarAdapter mBottomBarAdapter;
     private ArrayList<BottomBarModel> mBottomBarModelArrayList = new ArrayList<>();
+    private Dialog signInProgDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,9 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
         mRvBottomList.setAdapter(mBottomBarAdapter);
         setBottomBarData();
 
+        signInProgDialog = Utils.getProgress(this,"Please wait..");
+        signInProgDialog.show();
+
         mBrakingBadViewModel = new ViewModelProvider(this, new BrakingBadViewModelFactory(this, new EndpointCalls(getApplicationContext()))).get(BrakingBadViewModel.class);
         mBrakingBadViewModel.getBreakingBadDataList().observe(this, mDataList);
 
@@ -56,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
         @Override
         public void onChanged(ArrayList<BreakingBadModel> list) {
             if (Utils.isListNotNullAndEmpty(list)) {
+                signInProgDialog.dismiss();
                 mBrakingBadItemAdapter = new BrakingBadItemAdapter(getApplicationContext(), list);
                 mViewPager.setAdapter(mBrakingBadItemAdapter);
                 mViewPager.setPadding(60, 0, 60, 0);
