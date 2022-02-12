@@ -6,11 +6,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.assigment_epic.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -31,5 +33,11 @@ public class Utils {
         progressBar.getIndeterminateDrawable().setColorFilter(activity.getResources().getColor(R.color.purple_500), PorterDuff.Mode.MULTIPLY);
         dialog.setCancelable(false);
         return dialog;
+    }
+
+    public static Snackbar showSnackBar(View view, String message) {
+        Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
+        snackbar.show();
+        return snackbar;
     }
 }

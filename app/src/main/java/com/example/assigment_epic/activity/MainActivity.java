@@ -1,8 +1,8 @@
 package com.example.assigment_epic.activity;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LifecycleOwner;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
     private RecyclerView mRvBottomList;
     private BottomBarAdapter mBottomBarAdapter;
     private ArrayList<BottomBarModel> mBottomBarModelArrayList = new ArrayList<>();
-    private Dialog signInProgDialog;
+    private Dialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
         mRvBottomList.setAdapter(mBottomBarAdapter);
         setBottomBarData();
 
-        signInProgDialog = Utils.getProgress(this,"Please wait..");
-        signInProgDialog.show();
+        mProgressDialog = Utils.getProgress(this,"Please wait..");
+        mProgressDialog.show();
 
         mBrakingBadViewModel = new ViewModelProvider(this, new BrakingBadViewModelFactory(this, new EndpointCalls(getApplicationContext()))).get(BrakingBadViewModel.class);
         mBrakingBadViewModel.getBreakingBadDataList().observe(this, mDataList);
@@ -62,10 +62,13 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
         @Override
         public void onChanged(ArrayList<BreakingBadModel> list) {
             if (Utils.isListNotNullAndEmpty(list)) {
-                signInProgDialog.dismiss();
+                mProgressDialog.dismiss();
                 mBrakingBadItemAdapter = new BrakingBadItemAdapter(getApplicationContext(), list);
                 mViewPager.setAdapter(mBrakingBadItemAdapter);
                 mViewPager.setPadding(60, 0, 60, 0);
+            }else {
+                mProgressDialog.dismiss();
+                Toast.makeText(getApplicationContext(),mBrakingBadViewModel.getErrorMessage(),Toast.LENGTH_LONG).show();
             }
         }
     };

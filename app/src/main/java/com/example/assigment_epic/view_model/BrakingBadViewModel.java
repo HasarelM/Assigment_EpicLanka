@@ -17,6 +17,7 @@ public class BrakingBadViewModel  extends ViewModel {
     private static final String TAG = BrakingBadViewModel.class.getSimpleName();
     private EndpointCalls mRepository;
     private MutableLiveData<ArrayList<BreakingBadModel>> mBreakingBadDataArrayList = new MutableLiveData<>();
+    private String mErrorMessage;
 
     public BrakingBadViewModel(Context mContext, EndpointCalls repo) {
         mRepository = repo;
@@ -33,10 +34,15 @@ public class BrakingBadViewModel  extends ViewModel {
 
             @Override
             public void onError(String error) {
+                mErrorMessage = error;
             }
         });
 
         return mBreakingBadDataArrayList;
+    }
+
+    public String getErrorMessage(){
+        return mErrorMessage;
     }
 
 }
