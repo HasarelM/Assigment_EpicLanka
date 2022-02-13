@@ -10,9 +10,11 @@
 
     <!--Custom colours-->
     <color name="fab_colour">#e57373</color>
-    <color name="main_layout_background_colour">#030D43</color>
+    <color name="main_layout_background_colour">#24254B</color>
     <color name="image_background_colour">#ef9a9a</color>
-    <color name="name_colour">#8C706A</color>
+    <color name="name_colour">#E9D0D1</color>
     <color name="occupations_colour">#F1C8C8</color>
     <color name="dummy_text_colour">#D1CDCD</color>
+    <color name="name_text">#9C7B7C</color>
+
 </resources>

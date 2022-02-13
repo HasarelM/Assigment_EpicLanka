@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Assigment-Epic</string>
-    <string name="cast">Cast</string>
+    <string name="cast">CAST</string>
+    <string name="text_name_colour">Text name colour</string>
+    <string name="dummy_text_colour">Dummy text colour</string>
 </resources>
