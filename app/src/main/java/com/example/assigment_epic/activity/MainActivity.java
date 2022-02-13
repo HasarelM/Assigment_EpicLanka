@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //initiate the ui components
         mViewPager = findViewById(R.id.activity_main_vp_brakingbad_view_pager);
         mRvBottomList = findViewById(R.id.activity_main_rv_bottom_list);
         mBottomBarAdapter = new BottomBarAdapter(this, mBottomBarModelArrayList);
@@ -50,14 +51,17 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
         mRvBottomList.setAdapter(mBottomBarAdapter);
         setBottomBarData();
 
-        mProgressDialog = Utils.getProgress(this,"Please wait..");
+        // call the progress dialog from utils common class
+        mProgressDialog = Utils.getProgress(this, "Please wait..");
         mProgressDialog.show();
 
+        //initiate the view-model
         mBrakingBadViewModel = new ViewModelProvider(this, new BrakingBadViewModelFactory(this, new EndpointCalls(getApplicationContext()))).get(BrakingBadViewModel.class);
         mBrakingBadViewModel.getBreakingBadDataList().observe(this, mDataList);
 
     }
 
+    // get data from view-model
     Observer<ArrayList<BreakingBadModel>> mDataList = new Observer<ArrayList<BreakingBadModel>>() {
         @Override
         public void onChanged(ArrayList<BreakingBadModel> list) {
@@ -66,22 +70,22 @@ public class MainActivity extends AppCompatActivity implements LifecycleOwner {
                 mBrakingBadItemAdapter = new BrakingBadItemAdapter(getApplicationContext(), list);
                 mViewPager.setAdapter(mBrakingBadItemAdapter);
                 mViewPager.setPadding(60, 0, 60, 0);
-            }else {
+            } else {
                 mProgressDialog.dismiss();
-                Toast.makeText(getApplicationContext(),mBrakingBadViewModel.getErrorMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), mBrakingBadViewModel.getErrorMessage(), Toast.LENGTH_LONG).show();
             }
         }
     };
 
+    // set hard code values for bottom bar
     private void setBottomBarData() {
         String[] array = {"Recipes", "Shipping", "Subscription", "Payment", "Invoice", "Return", "Orders"};
         ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(array));
 
-        for (int i=0;i<arrayList.size();i++){
+        for (int i = 0; i < arrayList.size(); i++) {
             BottomBarModel model = new BottomBarModel();
             model.setBottomName(arrayList.get(i));
             mBottomBarModelArrayList.add(model);
         }
     }
-
 }
