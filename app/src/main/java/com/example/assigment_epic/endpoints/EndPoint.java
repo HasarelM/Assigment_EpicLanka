@@ -12,6 +12,7 @@ import retrofit2.http.Url;
 
 public interface EndPoint {
 
+    // get braking bad data list
     @Headers({"Content-Type: application/json"})
     @GET
     Call<ArrayList<BreakingBadModel>> getAllBrakingBadData(@Url String Url);

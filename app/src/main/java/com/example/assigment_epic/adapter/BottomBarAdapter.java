@@ -19,7 +19,8 @@ public class BottomBarAdapter extends RecyclerView.Adapter<BottomBarAdapter.View
     private ArrayList<BottomBarModel> mBottomBarArrayList;
     private Context mContext;
 
-    public BottomBarAdapter(Context context,ArrayList<BottomBarModel> list){
+    // get data from main activity
+    public BottomBarAdapter(Context context, ArrayList<BottomBarModel> list) {
         this.mBottomBarArrayList = list;
         this.mContext = context;
     }
@@ -27,6 +28,8 @@ public class BottomBarAdapter extends RecyclerView.Adapter<BottomBarAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        //initiate the adapter item layout
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.bottom_adapter_layout, parent, false);
         return new ViewHolder(itemView);
@@ -34,6 +37,8 @@ public class BottomBarAdapter extends RecyclerView.Adapter<BottomBarAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        // bind the data to item
         BottomBarModel model = mBottomBarArrayList.get(position);
         holder.mTvName.setText(model.getBottomName());
     }
@@ -45,6 +50,7 @@ public class BottomBarAdapter extends RecyclerView.Adapter<BottomBarAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTvName;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 

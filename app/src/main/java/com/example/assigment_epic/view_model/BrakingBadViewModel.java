@@ -12,7 +12,7 @@ import com.example.assigment_epic.utills.Utils;
 
 import java.util.ArrayList;
 
-public class BrakingBadViewModel  extends ViewModel {
+public class BrakingBadViewModel extends ViewModel {
 
     private static final String TAG = BrakingBadViewModel.class.getSimpleName();
     private EndpointCalls mRepository;
@@ -23,11 +23,12 @@ public class BrakingBadViewModel  extends ViewModel {
         mRepository = repo;
     }
 
-    public MutableLiveData<ArrayList<BreakingBadModel>> getBreakingBadDataList(){
+    // get the api response from endpoints class
+    public MutableLiveData<ArrayList<BreakingBadModel>> getBreakingBadDataList() {
         mRepository.getBrakingBadDataList(new StatusCallback() {
             @Override
             public void onSuccess(ArrayList result) {
-                if (Utils.isListNotNullAndEmpty(result)){
+                if (Utils.isListNotNullAndEmpty(result)) {
                     mBreakingBadDataArrayList.postValue(result);
                 }
             }
@@ -41,7 +42,7 @@ public class BrakingBadViewModel  extends ViewModel {
         return mBreakingBadDataArrayList;
     }
 
-    public String getErrorMessage(){
+    public String getErrorMessage() {
         return mErrorMessage;
     }
 

@@ -13,7 +13,6 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.example.assigment_epic.R;
 import com.example.assigment_epic.model.BreakingBadModel;
 import com.example.assigment_epic.utills.Utils;
-import com.example.assigment_epic.view_model.BrakingBadViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class BrakingBadItemAdapter extends PagerAdapter {
     private Context mContext;
     private ArrayList<BreakingBadModel> mBrakingBadItemArrayList;
 
-    public BrakingBadItemAdapter(Context context,ArrayList<BreakingBadModel> list){
+    public BrakingBadItemAdapter(Context context, ArrayList<BreakingBadModel> list) {
         this.mContext = context;
         this.mBrakingBadItemArrayList = list;
     }
@@ -43,7 +42,7 @@ public class BrakingBadItemAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
 
         //adapter layout set here
-        View view = LayoutInflater.from(mContext).inflate(R.layout.braking_bad_data_item,container,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.braking_bad_data_item, container, false);
 
         //initiate the layout ui components
         ImageView mIvImage;
@@ -59,10 +58,10 @@ public class BrakingBadItemAdapter extends PagerAdapter {
         BreakingBadModel model = mBrakingBadItemArrayList.get(position);
         Picasso.get().load(model.getImg()).into(mIvImage);
         mTvName.setText(model.getName());
-        if (Utils.isListNotNullAndEmpty(model.getOccupation())){
+        if (Utils.isListNotNullAndEmpty(model.getOccupation())) {
             StringBuilder sb = new StringBuilder();
-            for (int i=0;i<model.getOccupation().size();i++){
-                sb.append(model.getOccupation().get(i)+"\n");
+            for (int i = 0; i < model.getOccupation().size(); i++) {
+                sb.append(model.getOccupation().get(i) + "\n");
             }
 
             mTvOccupations.setText(sb);
@@ -70,7 +69,7 @@ public class BrakingBadItemAdapter extends PagerAdapter {
         mTvDummyText.setText(model.getStatus());
 
 
-        container.addView(view,position);
+        container.addView(view, position);
 
         return view;
     }
